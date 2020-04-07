@@ -9,8 +9,10 @@ export default class App extends Component {
       <Fragment>
         {/* "//Fragment react 提供的类型空标签,组件
         只允许一个根标签，Fragment可以同来合并，这个也可以包裹<></>" */}
-        <TodoHeader />
-        <TodoInput />
+        <TodoHeader desc="待办事项描述" x={1} y={2}>
+          待办事项Header
+        </TodoHeader>
+        <TodoInput name="添加">这是默认值</TodoInput>
         <TodolList />
       </Fragment>
     );
