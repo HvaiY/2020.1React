@@ -2,8 +2,19 @@
 import React, { Component, Fragment } from "react";
 import { TodoHeader, TodoInput, TodoList, Like } from "./components";
 import TodolList from "./components/TodoList";
+import PropTypes from "prop-types";
 
 export default class App extends Component {
+  static propTypes = {
+    todos: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        isCompleted: PropTypes.bool.isRequired,
+      })
+    ).isRequired,
+    onCompletedChange: PropTypes.func,
+  };
   // 组件的state ，有state 的就是非受控组件,函数式组件是受控组件，有state 的也可能是半受控组件(同时用了props)
   // //state 方式1
   // state = {
@@ -51,6 +62,18 @@ export default class App extends Component {
       todos: newTodos2,
     });
   };
+  onCompletedChange = (id) => {
+    this.setState((prevState) => {
+      return {
+        todos: prevState.todos.map((todo) => {
+          if (todo.id === id) {
+            todo.isCompleted = !todo.isCompleted;
+          }
+          return todo;
+        }),
+      };
+    });
+  };
   render() {
     return (
       <Fragment>
@@ -70,7 +93,10 @@ export default class App extends Component {
           {this.state.title}
         </TodoHeader>
         <TodoInput name="添加" addTodo={this.addTodo}></TodoInput>
-        <TodolList todos={this.state.todos} />
+        <TodolList
+          todos={this.state.todos}
+          onCompletedChange={this.onCompletedChange}
+        />
         <Like />
       </Fragment>
     );

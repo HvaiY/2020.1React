@@ -12,7 +12,11 @@ export default class TodolList extends Component {
             //   title={todo.title}
             //   isCompleted={todo.isCompleted}
             // />
-            <TodoItem key={todo.id} {...todo} />
+            <TodoItem
+              key={todo.id}
+              {...todo}
+              onCompletedChange={this.props.onCompletedChange}
+            />
           );
         })}
       </ul>
