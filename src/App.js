@@ -31,6 +31,26 @@ export default class App extends Component {
       ],
     };
   }
+
+  addTodo = (todoTitle) => {
+    // //联合后返回数组 重新设置State
+    // this.setState({
+    //   todos: this.state.todos.concat({
+    //     id: Math.random(),
+    //     title: todoTitle,
+    //     isCompleted: false,
+    //   }), });
+    const newTodos = this.state.todos.slice(); // 拷贝一份
+    const newTodos2 = [...this.state.todos];
+    newTodos2.push({
+      id: Math.random(),
+      title: todoTitle,
+      isCompleted: false,
+    });
+    this.setState({
+      todos: newTodos2,
+    });
+  };
   render() {
     return (
       <Fragment>
@@ -49,7 +69,7 @@ export default class App extends Component {
         <TodoHeader desc={this.state.desc} x={1} y={2}>
           {this.state.title}
         </TodoHeader>
-        <TodoInput name="添加">这是默认值</TodoInput>
+        <TodoInput name="添加" addTodo={this.addTodo}></TodoInput>
         <TodolList todos={this.state.todos} />
         <Like />
       </Fragment>
