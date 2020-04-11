@@ -11,8 +11,8 @@ export default class App extends Component {
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         isCompleted: PropTypes.bool.isRequired,
-      })
-    ).isRequired,
+      }).isRequired
+    ),
     onCompletedChange: PropTypes.func,
   };
   // 组件的state ，有state 的就是非受控组件,函数式组件是受控组件，有state 的也可能是半受控组件(同时用了props)
@@ -51,7 +51,8 @@ export default class App extends Component {
     //     title: todoTitle,
     //     isCompleted: false,
     //   }), });
-    const newTodos = this.state.todos.slice(); // 拷贝一份
+
+    // const newTodos = this.state.todos.slice(); // 拷贝一份
     const newTodos2 = [...this.state.todos];
     newTodos2.push({
       id: Math.random(),
