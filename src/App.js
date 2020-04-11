@@ -1,9 +1,9 @@
 //可以使用rcc 直接生成默认的组件
 import React, { Component, Fragment } from "react";
 import { TodoHeader, TodoInput, TodoList, Like } from "./components";
-import TodolList from "./components/TodoList";
 import PropTypes from "prop-types";
 
+import { getTodo } from "./Services";
 export default class App extends Component {
   static propTypes = {
     todos: PropTypes.arrayOf(
@@ -28,19 +28,33 @@ export default class App extends Component {
       desc: "待办事项",
       title: "待办事项Title",
       article: "<div>我是标签字符串，<li>01</li><li>02</li></div>",
-      todos: [
-        {
-          id: 1,
-          title: "起床",
-          isCompleted: true,
-        },
-        {
-          id: 2,
-          title: "吃饭",
-          isCompleted: false,
-        },
-      ],
+      todos: [],
+      isLoading: true,
     };
+  }
+
+  getData = () => {
+    getTodo()
+      .then((resp) => {
+        if (resp.status === 200) {
+          this.setState({
+            todos: resp.data,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false,
+        });
+      });
+  };
+  // 组件挂载 时执行ajax
+  componentDidMount() {
+    // console.log(this.http.getTodo);
+    this.getData();
   }
 
   addTodo = (todoTitle) => {
@@ -94,10 +108,14 @@ export default class App extends Component {
           {this.state.title}
         </TodoHeader>
         <TodoInput name="添加" addTodo={this.addTodo}></TodoInput>
-        <TodolList
-          todos={this.state.todos}
-          onCompletedChange={this.onCompletedChange}
-        />
+        {this.state.isLoading ? (
+          <div>loading ...</div>
+        ) : (
+          <TodoList
+            todos={this.state.todos}
+            onCompletedChange={this.onCompletedChange}
+          />
+        )}
         <Like />
       </Fragment>
     );
