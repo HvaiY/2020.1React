@@ -8,6 +8,7 @@ export default class TodoItem extends Component {
     };
   }
   // 构造函数只能执行一次，初始化的State那么拼接的文本需要改变 那么使用组件生命周期下的 getDerivedStateFromProps来改变State
+  // 组件生命周期说明  https://zh-hans.reactjs.org/docs/react-component.html
   static getDerivedStateFromProps(props) {
     return {
       completedText: props.isCompleted ? "完成" : "未完成",
