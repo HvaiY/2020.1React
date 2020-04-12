@@ -1,31 +1,14 @@
-## 高阶组件
-
-### 让 cra(create-react-app)支持@装饰器写法
-
-1、不管你是需要配置什么，我们最好的方式是使用`react-app-rewired` 这个包来对 cra 创建的项目进行轻微的配置调整
-2、安装好之后，在`package.json`里把`scripts`里面的`react-scripts`替换成`react-app-rewired`
-3、在根目录下创建一个`config-overrides.js`
-
-```
- module.exports = (config) => {
-      //如果没有使用 customize-cra,就可以在这里对config 进行配置
-    return config;
-
-  };
-```
-
-4、当然想要配置更加方便，可以在安装 customize-cra,然后把 config-overrides.js 改成这样
-
-```
-//使用 customize-cra  npm install customize-cra --save-dev
-//node.js
-const { override, addDecoratorsLegacy } = require("customize-cra");
-
-module.exports = override(
-    addDecoratorsLegacy()
-    );
-```
-
-5、[customize-cra ](https://www.npmjs.com/package/customize-cra#with-webpack)地址
-
 ### `npm start`
+
+## Redux 使用
+
+- 引入 Redux 包 `npm i redux -S`
+- 创建 reducers
+  - 创建 reducer(是个方法) 对动作的实现和数据的初始化，
+  - reducer 可以有多个，使用 redux 中的 combineReducers 合并导出
+    最终给到 Store 使用
+- 创建 store `createStore(创建的reducer)`方法执行后就是 store
+  - 组件中直接将 store 以 props 的方式传下去至对应的组件对数据进行处理(组件中 store.dispatch 来执行 reducer，并且组件挂载时可以调用 store.subscribe()进行监听)
+- 创建动作 action ，导出动作的定义，动作是一个方法一传入参数 ，
+
+### 可以查看 react-principle.html js 了解原理

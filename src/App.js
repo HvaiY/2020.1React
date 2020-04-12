@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import WithCopyright from "./withCopyright";
-// npm install react-app-rewired --save-dev
-class App extends Component {
+import { CartList } from "./components";
+
+export default class App extends Component {
   render() {
-    return <div>App</div>;
+    return <CartList store={this.props.store} />;
   }
 }
-
-export default WithCopyright(App);
