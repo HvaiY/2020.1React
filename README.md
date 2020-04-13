@@ -30,3 +30,4 @@
 ## 异步 action
 
 - 1、由于 action 返回的是一个对象，为能让 actionCreator 异步返回一个对象，借助中间件 react-thunk `npm i redux-thunk -S`
+- 2、store 中加入中间件 thunk
