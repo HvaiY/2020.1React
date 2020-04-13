@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //conncet 方法执行之后是一个高阶组件
 import { connect } from "react-redux";
 //导入actionCreator
-import { increment, decrement } from "../../actions/cart";
+import { increment, decrement, decrementAsync } from "../../actions/cart";
 
 //可以装饰的方式来使用connect
 // @connect(mapState, { increment, decrement })
@@ -46,6 +46,10 @@ class CartList extends Component {
                 <th>{item.title}</th>
                 <th>{item.price}</th>
                 <th>
+                  <button
+                    onClick={this.props.decrementAsync.bind(this, item.id)}>
+                    等一会再减
+                  </button>
                   <button
                     // onClick={() => {
                     //   // this.props.dispatch(decrement(item.id));
@@ -102,4 +106,6 @@ const mapDispatchToProps = (dispatch) => {
 //方式2 展开动作
 // export default connect(mapState, mapDispatchToProps)(CartList);
 // 方式三，如果定的动作标准的 payload对象存放参数的话可以直接使用 动作作为参数传给connect
-export default connect(mapState, { increment, decrement })(CartList);
+export default connect(mapState, { increment, decrement, decrementAsync })(
+  CartList
+);

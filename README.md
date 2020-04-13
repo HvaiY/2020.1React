@@ -26,3 +26,7 @@
 - 5、 connect(mapStateToProps,{...actionCreators})(你的组件)
 - 6、 actionCreators
 - 7、 修改 reducers
+
+## 异步 action
+
+- 1、由于 action 返回的是一个对象，为能让 actionCreator 异步返回一个对象，借助中间件 react-thunk `npm i redux-thunk -S`
