@@ -5,10 +5,16 @@
  */
 
 //引入一些相关的方法
-const { override, addLessLoader } = require("customize-cra");
-
+const { override, addLessLoader, fixBabelImports } = require("customize-cra");
+const modifyVars = require("./lessVars");
 module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
+    modifyVars: "./lessVars.js", //直接导入也是可以的 const modifyVars = require("./lessVars");
+  }),
+  fixBabelImports("import", {
+    libraryName: "antd",
+    libraryDirectory: "es",
+    style: true,
   })
 );
