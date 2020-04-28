@@ -9,7 +9,7 @@ import {
 
 import App from "./App";
 
-import { mainRouter } from "./routes";
+import { mainRoute } from "./routes";
 
 import "./index.less";
 
@@ -24,7 +24,7 @@ render(
         }}></Route>
       {
         //没有权限的页面可以直接访问
-        mainRouter.map((route) => {
+        mainRoute.map((route) => {
           return (
             <Route
               key={route.pathname}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Button } from "antd";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { adminRouter } from "./routes";
+import { adminRoute } from "./routes";
+
+import  Frame from './components/Frame'
 
 // //高阶组件 ，组件为参数的话，参数首字母必须大写
 // const testHOC = (WrappedComponent) => {
@@ -21,10 +23,10 @@ import { adminRouter } from "./routes";
 class App extends Component {
   render() {
     return (
-      <div>
-        <div>这是公共部分</div>
+      <Frame>
         <Switch>
-          {adminRouter.map((route) => {
+
+          {adminRoute.map((route) => {
             return (
               <Route
                 key={route.pathname}
@@ -36,10 +38,15 @@ class App extends Component {
               />
             );
           })}
-          <Redirect to={adminRouter[0].pathname} from='/admin' exact />
-          <Redirect to='/404' />
-        </Switch>
-      </div>
+          <Redirect to={adminRoute[0].pathname} from='/admin' exact />
+         <Redirect to='/404' />
+</Switch>
+
+      </Frame>
+      // <div>
+      //   {/* <div>这是公共部分</div> */}
+
+      // </div>
     );
   }
 }
