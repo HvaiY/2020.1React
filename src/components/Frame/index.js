@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
 import { withRouter } from "react-router-dom";
-import zhCN from "antd/es/locale/zh_CN";
+
 import {
   UserOutlined,
   LaptopOutlined,
@@ -24,9 +24,9 @@ class Frame extends Component {
     this.props.history.push(key);
   };
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
-      <Layout style={{ minHeight: "100%" }} locale={zhCN}>
+      <Layout style={{ minHeight: "100%" }}>
         <Header className='header demo-header '>
           <div className='demo-logo'>
             <img src={Logo} alt='ReactTest' />

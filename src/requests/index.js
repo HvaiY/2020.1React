@@ -18,7 +18,7 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use((resp) => {
   console.log("messagess");
-  console.log(resp.data);
+  // console.log(resp.data);
   if (resp.data.code === 200) {
     return resp.data;
   } else {
@@ -27,6 +27,15 @@ service.interceptors.response.use((resp) => {
   }
 });
 
-export const getArticles = (config) => {
-  return service.post("/api/v1/articleList");
+//获取文章列表
+export const getArticles = (offset = 0, limited = 10) => {
+  return service.post("/api/v1/articleList", {
+    offset,
+    limited,
+  });
+};
+
+//通过Id 删除一篇文章
+export const deleteArticleById = (id) => {
+  return service.post(`/api/v1/articleDelete/${id}`);
 };

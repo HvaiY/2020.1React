@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Card, Table, Button, Tag } from "antd";
+import { Card, Table, Button, Tag, Modal, Typography, message } from "antd";
 
 import moment from "moment/moment";
-import { getArticles } from "../../requests";
+import { getArticles, deleteArticleById } from "../../requests";
 import XLSX from "xlsx";
 window.moment = moment;
 const { Column, ColumnGroup } = Table;
@@ -64,6 +64,10 @@ export default class Article extends Component {
       isLoading: false,
       offset: 0,
       pageSize: 10,
+      deleteArticleTitle: "",
+      isShowArticleModal: false,
+      deleteArticleConfirmLoading: false,
+      deleteArticleId: null,
     };
   }
 
@@ -98,13 +102,16 @@ export default class Article extends Component {
     columns.push({
       title: "操作",
       dataIndex: "options",
-      render: () => {
+      render: (text, record) => {
         return (
           <ButtonGroup>
             <Button type='primary' size='small'>
               编辑
             </Button>
-            <Button type='danger' size='small'>
+            <Button
+              type='danger'
+              size='small'
+              onClick={this.ShowArticleDeleted.bind(this, record)}>
               删除
             </Button>
           </ButtonGroup>
@@ -123,6 +130,7 @@ export default class Article extends Component {
       () => this.getData()
     );
   };
+
   onShowSizeChange = (current, size) => {
     this.setState(
       {
@@ -132,6 +140,7 @@ export default class Article extends Component {
       () => this.getData()
     );
   };
+
   toExcel = () => {
     const data = [Object.keys(this.state.dataSource[0])];
     for (let i = 0; i < this.state.dataSource.length; i++) {
@@ -158,6 +167,58 @@ export default class Article extends Component {
       )}.xlsx`
     );
   };
+
+  // ArticleDeleted = (record) => {
+  //   Modal.confirm({
+  //     title: "删除数据？请谨慎操作",
+  //     content: (
+  //       <Typography>
+  //         确定要删除<span style={{ color: "#F00" }}>{record.title}</span>
+  //       </Typography>
+  //     ),
+  //     okText: "别墨迹，直接删除",
+  //     cancelText: <span style={{ color: "#F00" }}>OMG 我我点错了</span>,
+  //   });
+  // };
+
+  ShowArticleDeleted = (record) => {
+    this.setState({
+      isShowArticleModal: true,
+      deleteArticleTitle: record.title,
+      deleteArticleId: record.id,
+    });
+  };
+
+  ArticleDeleted = () => {
+    this.setState({
+      deleteArticleConfirmLoading: true,
+    });
+    deleteArticleById(this.state.deleteArticleId)
+      .then((resp) => {
+        console.log(resp);
+        message.success(resp.data.msg);
+        // this.getData();
+        this.setState(
+          {
+            offset: 0,
+          },
+          this.getData()
+        );
+      })
+      .catch((err) => {
+        this.setState({
+          deleteArticleConfirmLoading: false,
+          isShowArticleModal: false,
+        });
+      })
+      .finally(() => {
+        this.setState({
+          deleteArticleConfirmLoading: false,
+          isShowArticleModal: false,
+        });
+      });
+  };
+
   componentDidMount() {
     this.getData();
   }
@@ -171,7 +232,7 @@ export default class Article extends Component {
         // console.log(resp.data.total);
         const respColumns = this.createColumns(Object.keys(resp.data.list[0]));
         const respList = Object.values(resp.data.list);
-        console.log(respColumns);
+        // console.log(respColumns);
         this.setState({
           total: resp.data.total,
           dataSource: respList,
@@ -186,6 +247,14 @@ export default class Article extends Component {
           isLoading: false,
         });
       });
+  };
+
+  hideDeleteModal = () => {
+    this.setState({
+      isShowArticleModal: false,
+      deleteArticleTitle: "",
+      deleteArticleConfireLoading: false,
+    });
   };
 
   render() {
@@ -209,6 +278,21 @@ export default class Article extends Component {
               onShowSizeChange: this.onShowSizeChange,
             }}
           />
+
+          <Modal
+            title='该操作不可逆，请谨慎'
+            visible={this.state.isShowArticleModal}
+            onCancel={this.hideDeleteModal}
+            confirmLoading={this.state.deleteArticleConfirmLoading}
+            onOk={this.ArticleDeleted}>
+            <Typography>
+              确定要删除
+              <span style={{ color: "#f00" }}>
+                {this.state.deleteArticleTitle}
+              </span>
+              吗？
+            </Typography>
+          </Modal>
         </Card>
       </div>
     );
