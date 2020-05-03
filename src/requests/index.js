@@ -27,6 +27,6 @@ service.interceptors.response.use((resp) => {
   }
 });
 
-export const getArticles = () => {
+export const getArticles = (config) => {
   return service.post("/api/v1/articleList");
 };
