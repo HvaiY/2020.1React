@@ -1,5 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
+import zhCN from "antd/es/locale/zh_CN";
+import { LocaleProvider} from 'antd'
 import {
   HashRouter as Router,
   Route,
@@ -14,6 +16,7 @@ import { mainRoute } from "./routes";
 import "./index.less";
 
 render(
+  <LocaleProvider locale={ zhCN}>
   <Router>
     <Switch>
       <Route
@@ -37,7 +40,7 @@ render(
       <Redirect to='/admin' from='/' exact />
       <Redirect to='./404' />
     </Switch>
-  </Router>,
-
+  </Router>
+</LocaleProvider>,
   document.querySelector("#root")
 );

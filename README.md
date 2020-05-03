@@ -11,3 +11,6 @@
   - 基本路由配置 设置默认/精准匹配找到不跳转到 404 /admin 后面找不到也精准匹配
   - 路由配置好之后 ，发现所有的地址的都加载好了，比较费资源，这时候需要懒加载
 - 6. 懒加载 `npm i react-loadable -S`及使用
+- 7. Frame 组件 Layout 基本使用
+- 8. Tables 组件 及 mock 数据 ，请求数据 `npm i axios -D`（创建请求获取 mock 数据）
+  - moment 时间格式化插件 下载 `npm i moment -S` 注意引入的坑： import moment from "moment/moment";
