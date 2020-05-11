@@ -24,21 +24,23 @@ class Frame extends Component {
     this.props.history.push(key);
   };
   render() {
-    // console.log(this.props);
+    const selectedItemArray = this.props.location.pathname.split("/");
+    selectedItemArray.length = 3;
     return (
       <Layout style={{ minHeight: "100%" }}>
-        <Header className='header demo-header '>
-          <div className='demo-logo'>
-            <img src={Logo} alt='ReactTest' />
+        <Header className="header demo-header ">
+          <div className="demo-logo">
+            <img src={Logo} alt="ReactTest" />
           </div>
         </Header>
         <Layout>
-          <Sider width={200} className='site-layout-background'>
+          <Sider width={200} className="site-layout-background">
             <Menu
-              mode='inline'
-              defaultSelectedKeys={[this.props.location.pathname]}
+              mode="inline"
+              defaultSelectedKeys={[selectedItemArray.join("/")]}
               onClick={this.onMenuCLick}
-              style={{ height: "100%", borderRight: 0 }}>
+              style={{ height: "100%", borderRight: 0 }}
+            >
               {menu.map((r) => {
                 return (
                   <Menu.Item key={r.pathname}>
@@ -54,7 +56,8 @@ class Frame extends Component {
               style={{
                 background: "#fff",
                 margin: 0,
-              }}>
+              }}
+            >
               {this.props.children}
             </Content>
           </Layout>

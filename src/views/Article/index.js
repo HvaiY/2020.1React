@@ -1,7 +1,16 @@
 import React, { Component } from "react";
-import { Card, Table, Button, Tag, Modal, Typography, message } from "antd";
+import {
+  Card,
+  Table,
+  Button,
+  Tag,
+  Modal,
+  Typography,
+  message,
+  Tooltip,
+} from "antd";
 
-import moment from "moment/moment";
+import moment from "moment";
 import { getArticles, deleteArticleById } from "../../requests";
 import XLSX from "xlsx";
 window.moment = moment;
@@ -79,7 +88,11 @@ export default class Article extends Component {
           key: item,
           render: (text, record) => {
             const { amount } = record;
-            return <Tag color={amount > 200 ? "red" : "green"}>{amount}</Tag>;
+            return (
+              <Tooltip title={amount > 200 ? "超过200的" : "200及以下的"}>
+                <Tag color={amount > 200 ? "red" : "green"}> {amount} </Tag>{" "}
+              </Tooltip>
+            );
           },
         };
       }
@@ -105,15 +118,20 @@ export default class Article extends Component {
       render: (text, record) => {
         return (
           <ButtonGroup>
-            <Button type='primary' size='small'>
-              编辑
-            </Button>
             <Button
-              type='danger'
-              size='small'
-              onClick={this.ShowArticleDeleted.bind(this, record)}>
-              删除
-            </Button>
+              type="primary"
+              size="small"
+              onClick={this.ToEdit.bind(this, record)}
+            >
+              编辑{" "}
+            </Button>{" "}
+            <Button
+              type="danger"
+              size="small"
+              onClick={this.ShowArticleDeleted.bind(this, record)}
+            >
+              删除{" "}
+            </Button>{" "}
           </ButtonGroup>
         );
       },
@@ -181,6 +199,12 @@ export default class Article extends Component {
   //   });
   // };
 
+  ToEdit = (record) => {
+    this.props.history.push({
+      pathname: `/admin/article/edit/${record.id}`,
+      state: record,
+    });
+  };
   ShowArticleDeleted = (record) => {
     this.setState({
       isShowArticleModal: true,
@@ -261,8 +285,10 @@ export default class Article extends Component {
     return (
       <div>
         <Card
-          title='文章列表'
-          extra={<Button onClick={this.toExcel}>导出Excel</Button>}>
+          title="文章列表"
+          extra={<Button onClick={this.toExcel}> 导出Excel </Button>}
+        >
+          {" "}
           <Table
             loading={this.state.isLoading}
             rowKey={(record) => record.id}
@@ -278,22 +304,27 @@ export default class Article extends Component {
               onShowSizeChange: this.onShowSizeChange,
             }}
           />
-
           <Modal
-            title='该操作不可逆，请谨慎'
+            title="该操作不可逆，请谨慎"
             visible={this.state.isShowArticleModal}
             onCancel={this.hideDeleteModal}
             confirmLoading={this.state.deleteArticleConfirmLoading}
-            onOk={this.ArticleDeleted}>
+            onOk={this.ArticleDeleted}
+          >
             <Typography>
-              确定要删除
-              <span style={{ color: "#f00" }}>
-                {this.state.deleteArticleTitle}
+              确定要删除{" "}
+              <span
+                style={{
+                  color: "#f00",
+                }}
+              >
+                {" "}
+                {this.state.deleteArticleTitle}{" "}
               </span>
-              吗？
-            </Typography>
-          </Modal>
-        </Card>
+              吗？{" "}
+            </Typography>{" "}
+          </Modal>{" "}
+        </Card>{" "}
       </div>
     );
   }

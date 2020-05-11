@@ -1,5 +1,7 @@
 import axios from "axios";
-import { message } from "antd";
+import {
+  message
+} from "antd";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -38,4 +40,14 @@ export const getArticles = (offset = 0, limited = 10) => {
 //通过Id 删除一篇文章
 export const deleteArticleById = (id) => {
   return service.post(`/api/v1/articleDelete/${id}`);
+};
+
+//通过Id 获取详情
+export const getArticleById = (id) => {
+  return service.post(`/api/v1/article/${id}`);
+};
+
+//保存
+export const saveArticle = (id, data) => {
+  return service.post(`/api/v1/articleEdit/${id}`, data);
 };

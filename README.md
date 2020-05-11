@@ -13,6 +13,8 @@
 - 6. 懒加载 `npm i react-loadable -S`及使用
 - 7. Frame 组件 Layout 基本使用
 - 8. Tables 组件 及 mock 数据 ，请求数据 `npm i axios -D`（创建请求获取 mock 数据）
-  - moment 时间格式化插件 下载 `npm i moment -S` 注意引入的坑： import moment from "moment/moment";
+  - moment 时间格式化插件 下载 `npm i moment -S`
 - 9. Table pagination 配置 执行分页
 - 10. 导出 excel 插件 `npm i xlsx -S` 只能导出加载的数据，真实场景应该直接由后端返回文件直接下载
+  - 简单编辑页面(antd form)
+- 11. 富文本编辑器 [wangeditor](https://www.kancloud.cn/wangfupeng/wangeditor3/335769) 使用 `npm install wangeditor -S`
