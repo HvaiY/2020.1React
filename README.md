@@ -18,3 +18,7 @@
 - 10. 导出 excel 插件 `npm i xlsx -S` 只能导出加载的数据，真实场景应该直接由后端返回文件直接下载
   - 简单编辑页面(antd form)
 - 11. 富文本编辑器 [wangeditor](https://www.kancloud.cn/wangfupeng/wangeditor3/335769) 使用 `npm install wangeditor -S`
+
+* ### 图表
+  - canvas 位图，Svg 矢量图 ，三维 webgl
+  - 图表多用 echarts highcharts 数据可视化
