@@ -21,4 +21,8 @@
 
 * ### 图表
   - canvas 位图，Svg 矢量图 ，三维 webgl
-  - 图表多用 echarts highcharts 数据可视化
+  - 12. 图表多用 echarts highcharts 数据可视化
+  - d3js `https://d3js.org/` 阿里的 dataV ,百度的 egret ,蚂蚁 antv 等等
+    - Demo 中使用 echarts `npm install echarts --save` [echarts 实例](https://echarts.apache.org/examples/zh/index.html#chart-type-bar)
+  - 13. 通知中心，Demo 使用 ajax （一般为 socket ）
+    - 使用 Redux 来定义动作变更信息 `npm i redux react-redux redux-thunk -S`

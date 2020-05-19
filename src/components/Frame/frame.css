@@ -2,10 +2,11 @@
   padding: 0px 50px;
   background-color: #fff;
   border-bottom: 1px solid #dedede;
+  display: flex;
 }
 .demo-header .demo-logo {
-  height: 60px;
-  width: 60px;
+  height: 45px;
+  flex: 1;
 }
 .demo-header .demo-logo img {
   max-height: 100%;

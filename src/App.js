@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Button } from "antd";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { adminRoute } from "./routes";
+import { connect } from "react-redux";
 
-import  Frame from './components/Frame'
+import Frame from "./components/Frame";
 
 // //高阶组件 ，组件为参数的话，参数首字母必须大写
 // const testHOC = (WrappedComponent) => {
@@ -19,13 +20,17 @@ import  Frame from './components/Frame'
 //   };
 // };
 
+const mapState = (state) => ({
+  isLogin: state.user.isLogin,
+});
 // @testHOC
+@connect(mapState)
 class App extends Component {
   render() {
-    return (
+    return this.props.isLogin ? (
       <Frame>
         <Switch>
-
+          {" "}
           {adminRoute.map((route) => {
             return (
               <Route
@@ -37,16 +42,17 @@ class App extends Component {
                 }}
               />
             );
-          })}
-          <Redirect to={adminRoute[0].pathname} from='/admin' exact />
-         <Redirect to='/404' />
-</Switch>
-
+          })}{" "}
+          <Redirect to={adminRoute[0].pathname} from="/admin" exact />
+          <Redirect to="/404" />
+        </Switch>{" "}
       </Frame>
+    ) : (
       // <div>
       //   {/* <div>这是公共部分</div> */}
 
       // </div>
+      <Redirect to="/login" />
     );
   }
 }

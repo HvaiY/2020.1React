@@ -8,11 +8,15 @@ const isDev = process.env.NODE_ENV === "development";
 const service = axios.create({
   baseURL: isDev ? "http://rap2.taobao.org:38080/app/mock/252981" : "",
 });
+const service1 = axios.create({
+  baseURL: isDev ? "http://rap2.taobao.org:38080/app/mock/252981" : "",
+});
+
 
 service.interceptors.request.use((config) => {
   console.log(config);
   config.data = Object.assign({}, config.data, {
-    // authToken:window.localStorage.getItem('authToken')
+    // authToken:window.localStorage.getItem('authToken')s
     authToken: "itisToken",
   });
   return config;
@@ -52,6 +56,19 @@ export const saveArticle = (id, data) => {
   return service.post(`/api/v1/articleEdit/${id}`, data);
 };
 
+//获取阅读数量
 export const getArticleAmount = () => {
   return service.post('/api/v1/articleAmount');
+};
+
+//获取通知列表
+export const getNotifications = () => {
+  return service.post('/api/v1/notifications');
+};
+
+
+//登录
+export const loginRequest = (data) => {
+  console.log(data)
+  return service1.post('/api/v1/login', data);
 };

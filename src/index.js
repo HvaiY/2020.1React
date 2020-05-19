@@ -8,40 +8,44 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import App from "./App";
+import store from "./store";
 
 import { mainRoute } from "./routes";
 
 import "./index.less";
 
 render(
-  <ConfigProvider locale={zhCN}>
-    <Router>
-      <Switch>
-        <Route
-          path="/admin"
-          render={(routerProps) => {
-            //TODO 权限，需要登录才能访问/admin
-            return <App {...routerProps} />;
-          }}
-        ></Route>
-        {
-          //没有权限的页面可以直接访问
-          mainRoute.map((route) => {
-            return (
-              <Route
-                key={route.pathname}
-                path={route.pathname}
-                component={route.component}
-              />
-            );
-          })
-        }{" "}
-        <Redirect to="/admin" from="/" exact />
-        <Redirect to="./404" />
-      </Switch>{" "}
-    </Router>{" "}
-  </ConfigProvider>,
+  <Provider store={store}>
+    <ConfigProvider locale={zhCN}>
+      <Router>
+        <Switch>
+          <Route
+            path="/admin"
+            render={(routerProps) => {
+              //TODO 权限，需要登录才能访问/admin
+              return <App {...routerProps} />;
+            }}
+          ></Route>
+          {
+            //没有权限的页面可以直接访问
+            mainRoute.map((route) => {
+              return (
+                <Route
+                  key={route.pathname}
+                  path={route.pathname}
+                  component={route.component}
+                />
+              );
+            })
+          }{" "}
+          <Redirect to="/admin" from="/" exact />
+          <Redirect to="./404" />
+        </Switch>{" "}
+      </Router>{" "}
+    </ConfigProvider>
+  </Provider>,
   document.querySelector("#root")
 );

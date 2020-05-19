@@ -1,6 +1,8 @@
 import Loadable from "react-loadable";
 // import Loadable from "./loadableCustomer"; // 自定义 loadable 即可得知实现原理，
-import { Loading } from "../components";
+import {
+  Loading
+} from "../components";
 // import Dashboard from "./Dashboard";
 // import Login from "./Login";
 // import NotFound from "./NotFound";
@@ -33,4 +35,16 @@ const ArticleEdit = Loadable({
   loader: () => import("./Article/Edit"),
   loading: Loading,
 });
-export { Dashboard, Login, NotFound, Settings, ArticleList, ArticleEdit };
+const Notification = Loadable({
+  loader: () => import("./Notifications"),
+  loading: Loading,
+});
+export {
+  Dashboard,
+  Login,
+  NotFound,
+  Settings,
+  ArticleList,
+  ArticleEdit,
+  Notification
+};
