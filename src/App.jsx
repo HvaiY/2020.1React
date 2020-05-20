@@ -22,6 +22,7 @@ import Frame from "./components/Frame";
 
 const mapState = (state) => ({
   isLogin: state.user.isLogin,
+  role: state.user.role,
 });
 // @testHOC
 @connect(mapState)
@@ -30,7 +31,6 @@ class App extends Component {
     return this.props.isLogin ? (
       <Frame>
         <Switch>
-          {" "}
           {adminRoute.map((route) => {
             return (
               <Route
@@ -38,14 +38,18 @@ class App extends Component {
                 path={route.pathname}
                 exact={route.exact}
                 render={(routerProps) => {
-                  return <route.component {...routerProps} />;
+                  return route.roles.includes(this.props.role) ? (
+                    <route.component {...routerProps} />
+                  ) : (
+                    <Redirect to="/admin/noauth" />
+                  );
                 }}
               />
             );
-          })}{" "}
+          })}
           <Redirect to={adminRoute[0].pathname} from="/admin" exact />
           <Redirect to="/404" />
-        </Switch>{" "}
+        </Switch>
       </Frame>
     ) : (
       // <div>

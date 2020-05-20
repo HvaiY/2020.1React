@@ -21,16 +21,17 @@ export default (state = initState, action) => {
       return {
         ...state,
         ...action.payload,
-        isLogin: true,
-        isLoading: false,
+          isLogin: true,
+          isLoading: false,
       };
     case actionTypes.LOGIN_FAILED:
       return {
         id: "",
-        displayName: "",
-        avatar: "",
-        isLogin: false,
-        isLoading: false,
+          displayName: "",
+          avatar: "",
+          isLogin: false,
+          isLoading: false,
+          role: []
       };
     case actionTypes.START_LOGIN:
       return {
