@@ -43,7 +43,7 @@ class Frame extends Component {
     if (key === "/logout") {
       this.props.logout();
     } else {
-      this.props.history.push("/login");
+      this.props.history.push(key);
     }
   };
 
@@ -58,7 +58,7 @@ class Frame extends Component {
         <Badge dot={Boolean(this.props.notification)}>通知中心 </Badge>
       </Menu.Item>
 
-      <Menu.Item key="/admin/settings">个人设置</Menu.Item>
+      <Menu.Item key="/admin/profile">个人设置</Menu.Item>
       <Menu.Item key="/logout">退出登录</Menu.Item>
     </Menu>
   );

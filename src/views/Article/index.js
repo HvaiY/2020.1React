@@ -257,6 +257,9 @@ export default class Article extends Component {
         const respColumns = this.createColumns(Object.keys(resp.data.list[0]));
         const respList = Object.values(resp.data.list);
         // console.log(respColumns);
+        // 请求数据完成后，组件销毁了，这时候就不要setState ,否则报错
+        console.log(this.updater.isMounted(this));
+        if (!this.updater.isMounted(this)) return;
         this.setState({
           total: resp.data.total,
           dataSource: respList,
@@ -267,6 +270,7 @@ export default class Article extends Component {
         //处理错误信息
       })
       .finally(() => {
+        if (!this.updater.isMounted(this)) return;
         this.setState({
           isLoading: false,
         });

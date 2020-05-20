@@ -6,7 +6,8 @@ import {
   ArticleList,
   ArticleEdit,
   Notification,
-  NoAuth
+  NoAuth,
+  Profile
 } from "../views";
 import {
   DashboardOutlined,
@@ -67,6 +68,12 @@ export const adminRoute = [{
     pathname: "/admin/noauth",
     component: NoAuth,
     title: "未授权",
+    roles: ['001', '002', '003']
+  },
+  {
+    pathname: "/admin/profile",
+    component: Profile,
+    title: "个人设置",
     roles: ['001', '002', '003']
   },
 ];
