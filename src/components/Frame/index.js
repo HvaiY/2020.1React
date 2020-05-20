@@ -14,6 +14,7 @@ import "./frame.less";
 
 import { adminRoute } from "../../routes";
 import { fetchNotificationByPost } from "../../actions/notifications";
+import { logout } from "../../actions/useraction";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -25,11 +26,13 @@ const mapState = (state) => {
     notification: state.notifications.list.filter(
       (item) => item.hasRead === false
     ).length,
+    avatar: state.user.avatar,
+    displayName: state.user.displayName,
   };
 };
 
 // 组件来自 antd 的layout 布局
-@connect(mapState, { fetchNotificationByPost })
+@connect(mapState, { fetchNotificationByPost, logout })
 @withRouter
 class Frame extends Component {
   componentDidMount() {
@@ -37,7 +40,11 @@ class Frame extends Component {
   }
 
   OnDropdownMenuClick = ({ key }) => {
-    this.props.history.push(key);
+    if (key === "/logout") {
+      this.props.logout();
+    } else {
+      this.props.history.push("/login");
+    }
   };
 
   onMenuCLick = ({ key }) => {
@@ -52,7 +59,7 @@ class Frame extends Component {
       </Menu.Item>
 
       <Menu.Item key="/admin/settings">个人设置</Menu.Item>
-      <Menu.Item key="/login">退出登录</Menu.Item>
+      <Menu.Item key="/logout">退出登录</Menu.Item>
     </Menu>
   );
 
@@ -69,9 +76,9 @@ class Frame extends Component {
           <div>
             <Dropdown overlay={this.renderDropDown} trigger={["click"]}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Avatar src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2260375932,1277025996&fm=15&gp=0.jpg" />
+                <Avatar src={this.props.avatar} />
                 <span>
-                  欢迎您
+                  欢迎您,{this.props.displayName}
                   <Badge count={this.props.notification} offset={[-5, -8]}>
                     <DownOutlined />
                   </Badge>
