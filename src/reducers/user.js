@@ -38,7 +38,12 @@ export default (state = initState, action) => {
         ...state,
         isLoading: action.payload.isLoading,
       };
-    default:
-      return state;
+    case actionTypes.CHANGE_AVATAR:
+      return {
+        ...state,
+        avatar: action.payload.avatar
+      }
+      default:
+        return state;
   }
 };

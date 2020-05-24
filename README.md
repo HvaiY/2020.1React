@@ -26,3 +26,7 @@
     - Demo 中使用 echarts `npm install echarts --save` [echarts 实例](https://echarts.apache.org/examples/zh/index.html#chart-type-bar)
   - 13. 通知中心，Demo 使用 ajax （一般为 socket ）
     - 使用 Redux 来定义动作变更信息 `npm i redux react-redux redux-thunk -S`
+    - 权限控制及登录 动作使用Redux处理 已实现
+ -  图片上传，正常操作应该是直接上传到服务器，demo里面使用各种图床免费保存图片（一段时间会删除的）
+     - [贴图库](www.tietuku.com) 临时存储图片 达到演示效果
+     - redux 处理avatar 数据源达到头像同步更换

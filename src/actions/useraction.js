@@ -64,3 +64,13 @@ export const login = (userInfo) => {
             })
     }
 }
+
+export const changeAvatar = (avatar) => {
+
+    return {
+        type: actionTypes.CHANGE_AVATAR,
+        payload: {
+            avatar
+        }
+    }
+}
