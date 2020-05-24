@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
-export default class CounterBtn extends Component {
+class CounterBtn extends Component {
   render() {
-    return <button>{this.props.children}</button>;
+    return <button onClick={this.props.onClick}>{this.props.children}</button>;
   }
 }
+
+export default CounterBtn;

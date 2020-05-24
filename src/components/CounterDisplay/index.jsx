@@ -1,7 +1,15 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
 
-export default class CounterDisplay extends Component {
+@observer
+class CounterDisplay extends Component {
   render() {
-    return <div>{this.props.count}</div>;
+    return (
+      <>
+        <div>两倍计算：{this.props.counterStore.doubleCount}</div>
+        <div>一倍计算：{this.props.counterStore.count}</div>
+      </>
+    );
   }
 }
+export default CounterDisplay;
